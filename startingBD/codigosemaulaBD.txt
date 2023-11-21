@@ -1,0 +1,98 @@
+CREATE TABLE medicamentos(
+	id_medicamento INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	nome VARCHAR(50) NOT NULL,
+	preco INT NOT NULL,
+	estoque INT NOT NULL
+)
+
+INSERT INTO medicamentos (nome, preco, estoque)
+VALUES 
+('Dramin', 15, 6), 
+('Rivotril', 60, 5),
+('Dorflex', 20, 5);
+
+
+SELECT * FROM medicamentos
+SELECT nome FROM medicamentos
+SELECT nome, preco FROM medicamentos
+
+	
+
+CREATE TABLE usuario(
+	id_usuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            idade INT NOT NULL, 
+	nome VARCHAR(50) NOT NULL,
+	endereco 
+)
+
+INSERT INTO usuario (nome , idade , endereco )
+VALUES 
+('joao', 20, 'rua dos testes' ),
+('mario' , 45, ' rua dos encanadores' ),
+('ana julia', 18 'rua do sertao '),
+('luigi' , 45 , 'rua dos encanadores' ); 
+
+	
+
+CREATE TABLE SistemaFarmacia(
+	id_farmacia INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	id_medicamento INT NOT NULL,
+	id_usuario INT NOT NULL,
+	FOREIGN KEY (id_medicamento) REFERENCES medicamentos(id_medicamento),
+	FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
+);
+
+SELECT usuario.nome, medicamentos.nome
+FROM sistemafarmacia
+INNER JOIN usuario ON usuario.id_usuario = sistemafarmacia.id_usuario
+INNER JOIN medicamentos ON medicamentos.id_medicamento = sistemafarmacia.id_medicamento;
+
+SELECT id_usuario, id_medicamento FROM sistemafarmacia;
+
+
+ATIVIDADE DA BIBLIOTECA:
+
+CREATE TABLE usuario(
+	id_usuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	nome_usuario VARCHAR(50) NOT NULL,
+	email_usuario VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE livro(
+	id_livro INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	titulo VARCHAR(50) NOT NULL,
+	autor VARCHAR(50) NOT NULL,
+	anoPublicacao INT NOT NULL,
+	quantidadeDisponivel INT NOT NULL
+);
+
+CREATE TABLE sistemabiblioteca(
+	id_biblioteca INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	id_usuario INT NOT NULL,
+	id_livro INT NOT NULL,
+	FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
+	FOREIGN KEY (id_livro) REFERENCES livro(id_livro)
+);
+
+
+INSERT INTO livro(titulo, autor, anoPublicacao, quantidadeDisponivel)
+VALUES
+('Sistemas Operacionais', 'Tanembaum', 1992, 5),
+('Redes de Computadores', 'Tanembaum', 1988, 5),
+('Java: A Bíblia', 'Roberto Rubinstein Serson ', 2009, 2),
+('Dragões de Éter', 'Dracoon', 2012, 6);
+
+INSERT INTO usuario(nome_usuario, email_usuario)
+VALUES
+('pedro', 'pedro@yahoo.com'),
+('cristian', 'cristian@gmail.com'),
+('ana julia', 'anajulia@hotmail.com'),
+('cristina', 'cristina@outlook.com');
+
+SELECT * FROM usuario;
+SELECT * FROM livro;
+SELECT * FROM sistemabiblioteca;
+
+SELECT *
+FROM livro
+WHERE titulo LIKE 'Sistemas%'
